@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=no" />
+    <meta charset="UTF-8" />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./sass/css/index.css">
+    <link rel="stylesheet" href="./sass/css/reset.css">
+    <title>くさのねボード</title>
+
+  <style>
+  #chatbotFrame {
+    display: none;
+    position: absolute;
+    bottom: 5%;
+    right: 7%;
+    width: 45%;
+    height: 80%;
+    border: none;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    border-radius: 5px;
+    background-color: white;
+    z-index: 9999;
+  }
+  #chatbotButton {
+      position: absolute;
+      bottom: 5%;
+      right: 5%;
+      background-color: #86C232;
+      /* background: transparent; */
+      border: none;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      color: white;
+      font-size: 24px;
+      cursor: pointer;
+      z-index: 10000;
+      transition: transform 0.2s;
+  }
+  #chatbotButton:hover {
+      transform: scale(1.1); /* Apply a scale transformation on hover */
+  }
+  </style>
+  </head>
+
+  <body>
+    <div class="wrapper">
+      <div class="container">
+        <div class="header"><div class="header__title">くさのねボード</div></div>
+
+        <!-- <div class="form__wrapper"> -->
+        <div class="form__wrapper">
+          <div class="topics" id="topics">
+            <div class="topics__title">事例</div>
+            <ul class="topics__contents"></ul>
+          </div>
+          <form 
+            class="c-form"
+            method="POST"
+            onsubmit="submitted=true"
+            target="hidden_iframe"
+          >
+            <div class="c-form__item">
+              <label class="c-form__label none" for="email">メールアドレス</label>
+              <input
+                class="c-form__item__input"
+                id="email"
+                name="email"
+                placeholder="メールアドレス"
+                type="email"
+                required="required"
+              />
+            </div>
+  
+            <div class="c-form__item">
+              <label class="c-form__label" for="query">お悩みはありますか？</label>
+              <textarea
+                class="c-form__item__textarea"
+                id="query"
+                name="query"
+                placeholder="お悩み内容"
+                required="required"
+              ></textarea>
+            </div>
+  
+            <button type="submit" class="c-form__submit" onclick="callAPI(document.getElementById('email').value,document.getElementById('query').value)">送信</button>
+          </form>
+        </div>
+
+        <iframe
+          name="hidden_iframe"
+          id="hidden_iframe"
+          style="display: none"
+          onload="if(submitted){window.location='./thanks.html';}"
+        ></iframe>
+
+        <iframe id="chatbotFrame" src="https://inhousechatb.azurewebsites.net/"></iframe>
+        <button title="チャットボット" id="chatbotButton" onclick="toggleChatbot()">&#x1F4AC</button>
+      
+      </div>
+    </div>
+
+    <script>
+
+      function toggleChatbot() {
+        if ( document.getElementById("chatbotFrame").style.display === "none" || chatbotFrame.style.display === "") {
+            document.getElementById("chatbotFrame").style.display = "block";
+            // Add a click event listener to the document to close the chatbot when clicking outside
+            document.addEventListener("click", closeChatbotOutside);
+        } else {
+            document.getElementById("chatbotFrame").style.display = "none";
+            // Remove the click event listener when the chatbot is closed
+            document.removeEventListener("click", closeChatbotOutside);
+        }
+      }
+
+      // Function to close the chatbot when clicking outside
+      function closeChatbotOutside(event) {
+          if (!chatbotFrame.contains(event.target) && event.target !== chatbotButton) {
+              chatbotFrame.style.display = "none";
+              document.removeEventListener("click", closeChatbotOutside);
+          }
+      }
+
+
+      // callAPI function that takes the email and query numbers as parameters
+      var callAPI = (email,query)=>{
+          // instantiate a headers object
+          var myHeaders = new Headers();
+          // add content type header to object
+          myHeaders.append("Content-Type", "application/json");
+          // using built in JSON utility package turn object to string and store in a variable
+          var raw = JSON.stringify({"email":email,"query":query});
+          // create a JSON object with parameters for API call and store in a variable
+          var requestOptions = {
+              method: 'POST',
+              headers: myHeaders,
+              body: raw,
+              redirect: 'follow'
+          };
+          // make API call with parameters and use promises to get response
+          fetch("https://79ixc0fx85.execute-api.ap-northeast-1.amazonaws.com/dev", requestOptions)
+          .then(response => response.text())
+          // .then(result => alert(JSON.parse(result).body))
+          .catch(error => console.log('error', error));
+      }
+  </script>
+  
+  
+  </body>
+</html>
