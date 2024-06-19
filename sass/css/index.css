@@ -1,0 +1,94 @@
+html {
+  scroll-behavior: smooth; }
+
+input, textarea {
+  padding: 5px 10px; }
+
+.wrapper {
+  background-image: url("../../images/bollywood.png");
+  background-color: rgba(255, 255, 255, 0.6);
+  background-blend-mode: lighten;
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: center center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; }
+  .wrapper .container {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    width: 60%;
+    min-width: 375px;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.9); }
+    .wrapper .container .header {
+      width: 100%;
+      padding: 20px;
+      text-align: center;
+      background-color: #CC6666; }
+      .wrapper .container .header__title {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 20px;
+        font-size: 20px;
+        font-weight: bold;
+        color: white; }
+        .wrapper .container .header__title .subtitle {
+          font-size: 16px; }
+    .wrapper .container .form__wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+      padding: 0 50px 20px;
+      overflow: auto; }
+      .wrapper .container .form__wrapper .topics {
+        display: flex;
+        gap: 10px; }
+        .wrapper .container .form__wrapper .topics__title {
+          background-color: #CC6666;
+          color: white;
+          padding: 10px;
+          font-size: 16px;
+          word-break: keep-all; }
+        .wrapper .container .form__wrapper .topics__contents {
+          list-style: initial;
+          padding-left: 30px; }
+          .wrapper .container .form__wrapper .topics__contents__example .example__link {
+            text-decoration: none; }
+      .wrapper .container .form__wrapper .c-form {
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+        width: 100%; }
+        .wrapper .container .form__wrapper .c-form__item {
+          width: 100%;
+          display: flex;
+          flex-direction: column;
+          gap: 10px; }
+          .wrapper .container .form__wrapper .c-form__item__input:focus, .wrapper .container .form__wrapper .c-form__item__textarea:focus {
+            outline-color: #CC6666; }
+          .wrapper .container .form__wrapper .c-form__item__textarea {
+            height: 200px; }
+        .wrapper .container .form__wrapper .c-form__submit {
+          width: 100%;
+          max-width: 400px;
+          height: 50px;
+          margin: 10px auto 0;
+          background-color: #CC6666;
+          border-radius: 25px;
+          border: 0;
+          font-size: 24px;
+          transition: all 0.3s;
+          font-weight: bold;
+          color: white;
+          cursor: pointer; }
+          .wrapper .container .form__wrapper .c-form__submit:hover {
+            background: #d7092f; }
+
+.none {
+  display: none; }
+
+/*# sourceMappingURL=index.css.map */
